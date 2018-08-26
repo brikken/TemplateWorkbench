@@ -1,0 +1,100 @@
+﻿<Window x:Class="TemplateWorkbench.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TemplateWorkbench"
+        mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        Closing="wnd_Closing"
+        Title="MainWindow" Height="768" Width="1024"
+        Name="wnd">
+    <Window.Resources>
+        <Style x:Key="code">
+            <Setter Property="Control.FontFamily" Value="Courier New"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Target="{Binding ElementName=txtTemplate}">_Template</Label>
+            <TextBox Grid.Row="1" Name="txtTemplate" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" xml:space="preserve" Style="{StaticResource code}">hejtilflere(personer) ::= &lt;&lt;
+Vi skal i dag hilse på
+
+&lt;personer:hejskabelon2();separator="\nog\n\n"&gt;
+&gt;&gt;
+
+hejskabelon2(person) ::= &lt;&lt;
+Hej &lt;person.navn&gt;, du er &lt;person.alder&gt; år gammel
+Dine søskende er: &lt;trunc(person.soskende);separator=", "&gt;&lt;if(rest(person.soskende))&gt; og &lt;endif&gt;&lt;last(person.soskende)&gt;
+&lt;if(person.haandarbejde)&gt;Håndarbejdsprojekter: &lt;person.haandarbejde;separator=", "&gt;&lt;endif&gt;
+&lt;if(person.programmering)&gt;Programmeringsprojekter: &lt;person.programmering;separator=";"&gt;&lt;endif&gt;
+
+&gt;&gt;
+</TextBox>
+            <DockPanel Grid.Row="2">
+                <ComboBox DockPanel.Dock="Right" Name="lbTemplates" MinWidth="100" ItemsSource="{Binding Path=Templates, ElementName=wnd, NotifyOnTargetUpdated=True}" DisplayMemberPath="" TargetUpdated="lbTemplates_TargetUpdated"/>
+                <Label DockPanel.Dock="Right" Target="{Binding ElementName=lbTemplates}">T_emplates: </Label>
+                <TextBlock Name="txtTemplateStatus" Text="{Binding ElementName=wnd, Path=TemplateStatus}" HorizontalAlignment="Stretch"/>
+            </DockPanel>
+        </Grid>
+        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Target="{Binding ElementName=txtDataModel}">_Data model</Label>
+            <TextBox Grid.Row="1" Name="txtDataModel" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Style="{StaticResource code}" xml:space="preserve">{
+  "personer": [
+    {
+      "navn": "Ida",
+      "alder": 30,
+      "soskende": [
+        "Jakob",
+        "Sara",
+        "Hr. Ukendt"
+      ],
+      "haandarbejde": [
+        "Strikketøj",
+        "Videotapekurv"
+      ]
+    },
+    {
+      "navn": "Mads",
+      "alder": 36,
+      "soskende": [
+        "Margit",
+        "Mona"
+      ],
+      "programmering": [
+        "TemplateWorkbench"
+      ]
+    }
+  ]
+}</TextBox>
+        </Grid>
+        <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Stretch"/>
+        <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Target="{Binding ElementName=txtRender}">_Render</Label>
+            <TextBox Grid.Row="1" Name="txtRender" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=Render, Mode=OneWay, ElementName=wnd}" Style="{StaticResource code}"/>
+            <TextBlock Grid.Row="2" Name="txtRenderTime" HorizontalAlignment="Right" Text="{Binding Path=RenderTime, Mode=OneWay, ElementName=wnd}"/>
+        </Grid>
+    </Grid>
+</Window>
