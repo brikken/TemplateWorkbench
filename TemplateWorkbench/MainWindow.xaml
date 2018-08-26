@@ -28,8 +28,12 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Target="{Binding ElementName=txtTemplate}">_Template</Label>
-            <TextBox Grid.Row="1" Name="txtTemplate" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" xml:space="preserve" Style="{StaticResource code}">hejtilflere(personer) ::= &lt;&lt;
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=txtTemplate}">_Template</Label>
+            <TextBox Grid.Row="1" Grid.Column="0" Name="txtTemplate" AcceptsReturn="True" AcceptsTab="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" xml:space="preserve" Style="{StaticResource code}">hejtilflere(personer) ::= &lt;&lt;
 Vi skal i dag hilse på
 
 &lt;personer:hejskabelon2();separator="\nog\n\n"&gt;
@@ -43,13 +47,11 @@ Dine søskende er: &lt;trunc(person.soskende);separator=", "&gt;&lt;if(rest(pers
 
 &gt;&gt;
 </TextBox>
-            <DockPanel Grid.Row="2">
-                <ComboBox DockPanel.Dock="Right" Name="lbTemplates" MinWidth="100" ItemsSource="{Binding Path=Templates, ElementName=wnd, NotifyOnTargetUpdated=True}" DisplayMemberPath="" TargetUpdated="lbTemplates_TargetUpdated"/>
-                <Label DockPanel.Dock="Right" Target="{Binding ElementName=lbTemplates}">T_emplates: </Label>
-                <TextBlock Name="txtTemplateStatus" Text="{Binding ElementName=wnd, Path=TemplateStatus}" HorizontalAlignment="Stretch"/>
-            </DockPanel>
+            <Label Grid.Row="0" Grid.Column="1" Target="{Binding ElementName=lbTemplates}">T_emplates: </Label>
+            <ListBox Grid.Row="1" Grid.Column="1" Name="lbTemplates" MinWidth="100" ItemsSource="{Binding Path=Templates, ElementName=wnd, NotifyOnTargetUpdated=True}" DisplayMemberPath="" TargetUpdated="lbTemplates_TargetUpdated"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="txtTemplateStatus" Text="{Binding ElementName=wnd, Path=TemplateStatus}" HorizontalAlignment="Stretch"/>
         </Grid>
-        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"/>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -85,7 +87,7 @@ Dine søskende er: &lt;trunc(person.soskende);separator=", "&gt;&lt;if(rest(pers
   ]
 }</TextBox>
         </Grid>
-        <GridSplitter Grid.Row="3" Height="5" VerticalAlignment="Stretch"/>
+        <GridSplitter Grid.Row="3" Height="5" HorizontalAlignment="Stretch"/>
         <Grid Grid.Row="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>

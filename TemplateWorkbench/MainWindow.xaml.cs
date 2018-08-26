@@ -35,7 +35,7 @@ namespace TemplateWorkbench
         private DateTime? renderTime;
         public string RenderTime
         {
-            get { return renderTime?.ToLongTimeString() ?? "N/A"; }
+            get { return renderTime.HasValue ? renderTime?.ToLongTimeString() + " (" + TimeFormatter.TimeAgo(renderTime.Value) + ")" : "N/A"; }
         }
 
         public ObservableCollection<string> Templates { get; set; } = new ObservableCollection<string>();
@@ -48,10 +48,17 @@ namespace TemplateWorkbench
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private System.Timers.Timer timer = new System.Timers.Timer();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            timer.Elapsed += (object sender, System.Timers.ElapsedEventArgs e) => { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RenderTime")); };
+            timer.Interval = 10000;
+            timer.Enabled = true;
         }
+
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -98,30 +105,32 @@ namespace TemplateWorkbench
                 var templateInst = stg.GetInstanceOf(lbTemplates.SelectedValue as string);
 
                 // Load data model
-                JObject json = JObject.Parse(txtDataModel.Text);
-                var jsonDict = JsonConvert.DeserializeObject<IDictionary<string, object>>(txtDataModel.Text, new JsonConverter[] { new JsonConverterDictionary(), new JsonConverterCollection() });
-                foreach (JProperty child in json.Children())
+                if (templateInst.GetAttributes() != null)
                 {
-                    object childValue;
-                    jsonDict.TryGetValue(child.Name, out childValue);
-                    templateInst.Add(child.Name, childValue);
+                    var jsonDict = JsonConvert.DeserializeObject<IDictionary<string, object>>(txtDataModel.Text, new JsonConverter[] { new JsonConverterDictionary(), new JsonConverterCollection() });
+                    foreach (var elem in jsonDict)
+                    {
+                        if (templateInst.GetAttributes().ContainsKey(elem.Key)) {
+                            templateInst.Add(elem.Key, elem.Value);
+                        }
+                    }
                 }
 
                 // Render
                 render = templateInst.Render();
 
                 templateStatus = "OK";
+                renderTime = DateTime.Now;
+                timer.Stop(); timer.Start();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Render"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RenderTime"));
             }
             catch (Exception e)
             {
                 templateStatus = e.Message;
             }
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TemplateStatus"));
 
-            //render = "Rendering " + PadWithDots(txtTemplate.Text, 40) + " with data " + PadWithDots(txtDataModel.Text, 40);
-            renderTime = DateTime.Now;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Render"));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("RenderTime"));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TemplateStatus"));
         }
 
         private string PadWithDots(string text, int length)
@@ -134,19 +143,21 @@ namespace TemplateWorkbench
 
         private void lbTemplates_TargetUpdated(object sender, DataTransferEventArgs e)
         {
-            ComboBox cmb = (sender as ComboBox);
+            ListBox cmb = (sender as ListBox);
             (cmb.ItemsSource as INotifyCollectionChanged).CollectionChanged += (
                 (_,__) =>
                     {
-                        if ((sender as ComboBox).SelectedIndex == -1 && (sender as ComboBox).Items.Count > 0)
-                            (sender as ComboBox).SelectedIndex = 0;
+                        if ((sender as ListBox).SelectedIndex == -1 && (sender as ListBox).Items.Count > 0)
+                            (sender as ListBox).SelectedIndex = 0;
                     }
             );
         }
 
         private void wnd_Closing(object sender, CancelEventArgs e)
         {
+#if !DEBUG
             e.Cancel = (MessageBox.Show("Are you sure you want to close?", "Close", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No);
+#endif
         }
     }
 }
