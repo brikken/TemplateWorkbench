@@ -59,23 +59,6 @@ namespace TemplateWorkbench
             timer.Enabled = true;
         }
 
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.R && (
-                e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)))
-            {
-                // CTRL+R
-                PerformRender();
-            }
-            else if (e.Key == Key.F && (
-                e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)))
-            {
-                // CTRL+F
-                FormatJson();
-            }
-        }
-
         private void FormatJson()
         {
             try
@@ -159,5 +142,52 @@ namespace TemplateWorkbench
             e.Cancel = (MessageBox.Show("Are you sure you want to close?", "Close", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No);
 #endif
         }
+
+        private void CommandRefresh_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PerformRender();
+        }
+
+        private void CommandExit_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void CommandFormatData_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            FormatJson();
+        }
+    }
+
+    public static class Commands
+    {
+        public static readonly RoutedUICommand Refresh = new RoutedUICommand(
+            "_Refresh",
+            "Refresh",
+            typeof(Commands),
+            new InputGestureCollection() {
+                new KeyGesture(Key.R, ModifierKeys.Control)
+            }
+        );
+
+        public static readonly RoutedUICommand Exit = new RoutedUICommand(
+            "E_xit",
+            "Exit",
+            typeof(Commands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.F4, ModifierKeys.Alt)
+            }
+        );
+
+        public static readonly RoutedUICommand FormatData = new RoutedUICommand(
+            "_Format data",
+            "Format data",
+            typeof(Commands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.F, ModifierKeys.Control)
+            }
+        );
     }
 }
