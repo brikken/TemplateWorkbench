@@ -110,7 +110,7 @@ Dine søskende er: &lt;trunc(person.soskende);separator=", "&gt;&lt;if(rest(pers
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Target="{Binding ElementName=txtRender}">_Render</Label>
-                <TextBox Grid.Row="1" Name="txtRender" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=Render, Mode=OneWay, ElementName=wnd}" Style="{StaticResource code}"/>
+                <TextBox Grid.Row="1" Name="txtRender" IsReadOnly="True" IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Text="{Binding Path=Render, Mode=OneWay, ElementName=wnd}" Style="{StaticResource code}"/>
                 <TextBlock Grid.Row="2" Name="txtRenderTime" HorizontalAlignment="Right" Text="{Binding Path=RenderTime, Mode=OneWay, ElementName=wnd}"/>
             </Grid>
         </Grid>
