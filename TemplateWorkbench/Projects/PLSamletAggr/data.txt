@@ -1,0 +1,42 @@
+{
+  "config": {
+    "dateFrom": "2018-08-27",
+    "dateTo": "2018-08-27",
+    "keycols": [
+      "[status_dato]",
+      "[statusdate]",
+      "[businessunit]",
+      "[subbusinessunit]",
+      "[country]",
+      "[group]",
+      "[groupname]",
+      "[dealergroup]",
+      "[subgroup]",
+      "[book]",
+      "[performance]",
+      "[product]",
+      "[productdetail]",
+      "[margin_type]",
+      "[finalperformance]"
+    ],
+    "idcols": [
+      "[updated]",
+      "[approved]",
+      "[pltimestamp]",
+      "[approvetimestamp]",
+      "[userid]",
+      "[sort]"
+    ],
+    "numcols": [
+      "[total_d_dkk]",
+      "[total_m_dkk]",
+      "[total_y_dkk]",
+      "[margins_d_dkk]",
+      "[margins_m_dkk]",
+      "[margins_y_dkk]",
+      "[total_d_lok]",
+      "[total_m_lok]",
+      "[total_y_lok]"
+    ]
+  }
+}

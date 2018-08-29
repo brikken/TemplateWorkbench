@@ -1,0 +1,27 @@
+plsaggr(config) ::= <<
+with
+	Aggr as (
+		select
+			<config.keycols:{ k | <k>,
+			}>
+			<config.idcols:{ k | <k>,
+			}>
+			<config.numcols:{ n | SUM(<n>) OVER (PARTITION BY <partition(config)>) <n>,
+			}>
+			ROW_NUMBER() OVER (PARTITION BY <partition(config)> ORDER BY ID DESC) [rowNumber]
+		from
+			dbo.PLSamlet pls
+		where
+			statusdate between '<config.dateFrom>' and '<config.dateTo>'
+	)
+select
+	*
+from
+	Aggr
+where
+	[rowNumber] = 1
+>>
+
+partition(config) ::= <<
+<config.keycols:{ k | <k>};separator=",">
+>>
