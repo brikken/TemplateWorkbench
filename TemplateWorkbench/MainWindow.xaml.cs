@@ -116,6 +116,11 @@ namespace TemplateWorkbench
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TemplateStatus"));
         }
 
+        private void CopyToClipBoard(string text)
+        {
+            Clipboard.SetText(text);
+        }
+
         private string PadWithDots(string text, int length)
         {
             if (text.Length > length)
@@ -156,6 +161,11 @@ namespace TemplateWorkbench
         private void CommandFormatData_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             FormatJson();
+        }
+
+        private void CommandCopyToClipBoard_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            CopyToClipBoard(render);
         }
     }
 
