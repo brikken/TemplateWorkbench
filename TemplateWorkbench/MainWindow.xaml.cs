@@ -203,7 +203,11 @@ namespace TemplateWorkbench
         public static readonly RoutedUICommand CopyToClipBoard = new RoutedUICommand(
             "_Copy Render Result",
             "Copy Render Result",
-            typeof(Commands)
+            typeof(Commands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.C, ModifierKeys.Control | ModifierKeys.Shift)
+            }
         );
     }
 }
