@@ -17,11 +17,15 @@
         <CommandBinding Command="local:Commands.Refresh" Executed="CommandRefresh_Executed"/>
         <CommandBinding Command="local:Commands.Exit" Executed="CommandExit_Executed"/>
         <CommandBinding Command="local:Commands.FormatData" Executed="CommandFormatData_Executed"/>
+        <CommandBinding Command="local:Commands.CopyToClipBoard" Executed="CommandCopyToClipBoard_Executed"/>
     </Window.CommandBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Command="local:Commands.Exit"/>
+            </MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Command="local:Commands.CopyToClipBoard"/>
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Command="local:Commands.FormatData"/>
