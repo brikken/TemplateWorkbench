@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -188,6 +188,12 @@ namespace TemplateWorkbench
             {
                 new KeyGesture(Key.F, ModifierKeys.Control)
             }
+        );
+
+        public static readonly RoutedUICommand CopyToClipBoard = new RoutedUICommand(
+            "_Copy Render Result",
+            "Copy Render Result",
+            typeof(Commands)
         );
     }
 }
