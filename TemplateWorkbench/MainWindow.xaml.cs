@@ -116,6 +116,11 @@ namespace TemplateWorkbench
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TemplateStatus"));
         }
 
+        private void CopyToClipBoard(string text)
+        {
+            Clipboard.SetText(text);
+        }
+
         private string PadWithDots(string text, int length)
         {
             if (text.Length > length)
@@ -157,6 +162,11 @@ namespace TemplateWorkbench
         {
             FormatJson();
         }
+
+        private void CommandCopyToClipBoard_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            CopyToClipBoard(render);
+        }
     }
 
     public static class Commands
@@ -187,6 +197,16 @@ namespace TemplateWorkbench
             new InputGestureCollection()
             {
                 new KeyGesture(Key.F, ModifierKeys.Control)
+            }
+        );
+
+        public static readonly RoutedUICommand CopyToClipBoard = new RoutedUICommand(
+            "_Copy Render Result",
+            "Copy Render Result",
+            typeof(Commands),
+            new InputGestureCollection()
+            {
+                new KeyGesture(Key.C, ModifierKeys.Control | ModifierKeys.Shift)
             }
         );
     }
