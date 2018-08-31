@@ -121,14 +121,6 @@ namespace TemplateWorkbench
             Clipboard.SetText(text);
         }
 
-        private string PadWithDots(string text, int length)
-        {
-            if (text.Length > length)
-                return text.Substring(0, length - 5) + "[...]";
-            else
-                return text;
-        }
-
         private void lbTemplates_TargetUpdated(object sender, DataTransferEventArgs e)
         {
             ListBox cmb = (sender as ListBox);
