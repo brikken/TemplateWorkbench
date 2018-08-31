@@ -65,7 +65,7 @@ Dine søskende er: &lt;trunc(person.soskende);separator=", "&gt;&lt;if(rest(pers
 
 &gt;&gt;
     </TextBox>
-                <Label Grid.Row="0" Grid.Column="1" Target="{Binding ElementName=lbTemplates}">T_emplates: </Label>
+                <Label Grid.Row="0" Grid.Column="1" Target="{Binding ElementName=lbTemplates}">Templ_ates: </Label>
                 <ListBox Grid.Row="1" Grid.Column="1" Name="lbTemplates" MinWidth="100" ItemsSource="{Binding Path=Templates, ElementName=wnd, NotifyOnTargetUpdated=True}" DisplayMemberPath="" TargetUpdated="lbTemplates_TargetUpdated"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="txtTemplateStatus" Text="{Binding ElementName=wnd, Path=TemplateStatus}" HorizontalAlignment="Stretch"/>
             </Grid>
