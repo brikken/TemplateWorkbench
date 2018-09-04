@@ -7,7 +7,7 @@
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
         Closing="wnd_Closing"
-        Title="MainWindow" Height="768" Width="1024"
+        Title="Template Workbench" Height="768" Width="1024"
         Name="wnd">
     <Window.DataContext>
         <local:ViewModel x:Name="viewModel"/>
