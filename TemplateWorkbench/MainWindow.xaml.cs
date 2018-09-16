@@ -44,10 +44,13 @@ namespace TemplateWorkbench
 #endif
         }
 
-        private void CommandRefresh_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void CommandRefresh_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            viewModel.CompileTemplates();
-            viewModel.PerformRender();
+            // run compile and render in the background
+            await Task.Run(() => {
+                viewModel.CompileTemplates();
+                viewModel.PerformRender();
+            });
         }
 
         private void CommandExit_Executed(object sender, ExecutedRoutedEventArgs e)
