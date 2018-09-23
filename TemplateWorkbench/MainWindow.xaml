@@ -18,7 +18,7 @@
         </Style>
     </Window.Resources>
     <Window.CommandBindings>
-        <CommandBinding Command="local:Commands.Refresh" Executed="CommandRefresh_Executed"/>
+        <CommandBinding Command="local:Commands.Refresh" Executed="CommandRefresh_ExecutedAsync"/>
         <CommandBinding Command="local:Commands.Exit" Executed="CommandExit_Executed"/>
         <CommandBinding Command="local:Commands.FormatData" Executed="CommandFormatData_Executed"/>
         <CommandBinding Command="local:Commands.CopyToClipBoard" Executed="CommandCopyToClipBoard_Executed"/>
