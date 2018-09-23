@@ -62,10 +62,14 @@ namespace TemplateWorkbench
             {
                 if (Templates.Count(tp => tp.Name == t) == 0) Templates.Add(new TemplateListItem() { Name = t });
             }
-            foreach (var tp in Templates)
+            // .ToList() forces enumeration before templates are removed, as to not change a collection being enumerated over
+            foreach (var tp in Templates.Where(tp => tp.Deleted).ToList())
             {
-                if (tp.Deleted) Templates.Remove(tp);
-                if (!templateNames.Contains(tp.Name)) tp.Deleted = true;
+                Templates.Remove(tp);
+            }
+            foreach (var tp in Templates.Where(tp => !templateNames.Contains(tp.Name)))
+            {
+                tp.Deleted = true;
             }
 
             // if no or invalid selection, select the first valid template if it exists
