@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace TemplateWorkbench
 {
-    class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         public string DataModel { get; set; }
+        public double FontSize { get; set; } = 12.0;
         public string LastRender { get; private set; }
         private Model model;
         public string Render { get; private set; }
@@ -171,7 +172,7 @@ namespace TemplateWorkbench
         }
     }
 
-    class TemplateListItem : INotifyPropertyChanged
+    public class TemplateListItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

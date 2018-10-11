@@ -13,8 +13,9 @@
         <local:ViewModel x:Name="viewModel"/>
     </Window.DataContext>
     <Window.Resources>
-        <Style x:Key="code">
-            <Setter Property="Control.FontFamily" Value="Courier New"/>
+        <Style x:Key="code" TargetType="TextBox">
+            <Setter Property="FontSize" Value="{Binding FontSize}"/>
+            <Setter Property="FontFamily" Value="Courier New"/>
         </Style>
     </Window.Resources>
     <Window.CommandBindings>
@@ -22,6 +23,7 @@
         <CommandBinding Command="local:Commands.Exit" Executed="CommandExit_Executed"/>
         <CommandBinding Command="local:Commands.FormatData" Executed="CommandFormatData_Executed"/>
         <CommandBinding Command="local:Commands.CopyToClipBoard" Executed="CommandCopyToClipBoard_Executed"/>
+        <CommandBinding Command="local:Commands.ChangeFontSize" Executed="CommandChangeFontSize_Executed"/>
         <CommandBinding Command="local:Commands.Open" x:Name="Open" Executed="CommandOpen_Executed"/>
         <CommandBinding Command="local:Commands.Save" x:Name="Save" Executed="CommandSave_Executed"/>
         <CommandBinding Command="local:Commands.SaveAs" x:Name="SaveAs" Executed="CommandSaveAs_Executed"/>
@@ -37,6 +39,8 @@
             </MenuItem>
             <MenuItem Header="_Edit">
                 <MenuItem Command="local:Commands.CopyToClipBoard"/>
+                <Separator/>
+                <MenuItem Command="local:Commands.ChangeFontSize"/>
             </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Command="local:Commands.FormatData"/>

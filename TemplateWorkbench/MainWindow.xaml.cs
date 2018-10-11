@@ -88,6 +88,11 @@ namespace TemplateWorkbench
                 viewModel.Open(dialog.FileName);
             }
         }
+
+        private void CommandChangeFontSize_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            new Windows.FontSize(viewModel).Show();
+        }
     }
 
     public static class Commands
@@ -155,6 +160,12 @@ namespace TemplateWorkbench
             {
                 new KeyGesture(Key.C, ModifierKeys.Control | ModifierKeys.Shift)
             }
+        );
+
+        public static readonly RoutedUICommand ChangeFontSize = new RoutedUICommand(
+            "C_hange Font Size",
+            "Change Font Size",
+            typeof(Commands)
         );
     }
 }
