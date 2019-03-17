@@ -19,6 +19,7 @@ namespace TemplateWorkbench
         public string LastRender { get; private set; }
         private Model model;
         public string Render { get; private set; }
+        public string RenderError { get; private set; }
         public DateTime RenderTime { get; private set; }
         public string StatusDataModel { get; private set; }
         public string StatusTemplate { get; private set; }
@@ -50,6 +51,12 @@ namespace TemplateWorkbench
             try
             {
                 stg = new TemplateGroupString(Template);
+
+                AccumulatingTemplateErrorListener listener = new AccumulatingTemplateErrorListener();
+                RenderError = "";
+                listener.PropertyChanged += (s, e) => RenderError = listener.Error;
+                stg.ErrorManager = new Antlr4.StringTemplate.Misc.ErrorManager(listener);
+
                 templateNames = stg.GetTemplateNames();
                 StatusTemplate = "Template(s) compiled";
             }

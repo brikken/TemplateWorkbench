@@ -104,9 +104,15 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Target="{Binding ElementName=txtRender}">_Render</Label>
-                <TextBox Grid.Row="1" Name="txtRender" IsReadOnly="True" IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Text="{Binding Render, Mode=OneWay}" Style="{StaticResource code}"/>
-                <TextBlock Grid.Row="2" Name="txtRenderTime" HorizontalAlignment="Right" Text="{Binding LastRender}"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=txtRender}">_Render</Label>
+                <Label Grid.Row="0" Grid.Column="1" Target="{Binding ElementName=txtRenderError}">_Error</Label>
+                <TextBox Grid.Row="1" Grid.Column="0" Name="txtRender" IsReadOnly="True" IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Text="{Binding Render, Mode=OneWay}" Style="{StaticResource code}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="txtRenderError" IsReadOnly="True" IsReadOnlyCaretVisible="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Text="{Binding RenderError, Mode=OneWay}" Style="{StaticResource code}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="txtRenderTime" HorizontalAlignment="Right" Text="{Binding LastRender}"/>
             </Grid>
         </Grid>
     </DockPanel>
